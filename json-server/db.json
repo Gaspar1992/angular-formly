@@ -1,0 +1,392 @@
+{
+  "forms": [
+    {
+      "id": 1,
+      "form": [
+        {
+          "key": "text",
+          "type": "input",
+          "props": {
+            "label": "Some awesome text",
+            "placeholder": "Some sweet text",
+            "required": true
+          }
+        },
+        {
+          "key": "candy",
+          "type": "select",
+          "props": {
+            "label": "Multiple Options",
+            "options": [
+              {
+                "label": "Snickers",
+                "value": "snickers"
+              },
+              {
+                "label": "Baby Ruth",
+                "value": "baby_ruth"
+              },
+              {
+                "label": "Milky Way",
+                "value": "milky_way"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Expression Properties (Disabled)",
+      "form": [
+        {
+          "key": "text",
+          "type": "input",
+          "props": {
+            "label": "Text",
+            "placeholder": "Type here to see the other field become enabled..."
+          }
+        },
+        {
+          "key": "text2",
+          "type": "input",
+          "props": {
+            "label": "Hey!",
+            "placeholder": "This one is disabled if there is no text in the other input"
+          },
+          "expressions": {
+            "props.disabled": "!model.text"
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Default Value",
+      "form": [
+        {
+          "key": "firstName",
+          "type": "input",
+          "defaultValue": "This is a default value",
+          "props": {
+            "label": "First Name (initialized via default value)"
+          }
+        },
+        {
+          "key": "lastName",
+          "type": "input",
+          "defaultValue": "This is a default value",
+          "props": {
+            "label": "Last Name (initialized via the model)"
+          }
+        },
+        {
+          "key": "candy",
+          "type": "select",
+          "defaultValue": "milky_way",
+          "props": {
+            "label": "Favorite Candy (initialized via default value",
+            "options": [
+              {
+                "label": "Snickers",
+                "value": "snickers"
+              },
+              {
+                "label": "Baby Ruth",
+                "value": "baby_ruth"
+              },
+              {
+                "label": "Milky Way",
+                "value": "milky_way"
+              }
+            ]
+          }
+        },
+        {
+          "key": "agree",
+          "type": "checkbox",
+          "props": {
+            "label": "Agree? (not initialized at all)",
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Hide Fields",
+      "form": [
+        {
+          "key": "name",
+          "type": "input",
+          "props": {
+            "label": "Name",
+            "placeholder": "Type in here to display the hidden field"
+          }
+        },
+        {
+          "key": "iLikeTwix",
+          "type": "checkbox",
+          "props": {
+            "label": "I like twix"
+          },
+          "expressions": {
+            "hide": "!model.name"
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Model Options",
+      "form": [
+        {
+          "key": "text",
+          "type": "input",
+          "modelOptions": {
+            "debounce": {
+              "default": 2000
+            }
+          },
+          "props": {
+            "label": "Debounce"
+          }
+        },
+        {
+          "key": "updateOnBlur",
+          "type": "input",
+          "modelOptions": {
+            "updateOn": "blur"
+          },
+          "props": {
+            "label": "`updateOn` on Blur",
+            "required": true
+          }
+        },
+        {
+          "key": "updateOnSubmit",
+          "type": "input",
+          "modelOptions": {
+            "updateOn": "submit"
+          },
+          "props": {
+            "label": "`updateOn` on Submit",
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Validations",
+      "form": [
+        {
+          "key": "name",
+          "type": "input",
+          "props": {
+            "label": "Name (required)",
+            "required": true
+          }
+        },
+        {
+          "key": "age",
+          "type": "input",
+          "props": {
+            "label": "Age (min= 18, max= 40)",
+            "type": "number",
+            "min": 18,
+            "max": 40,
+            "required": true
+          }
+        },
+        {
+          "key": "password",
+          "type": "input",
+          "props": {
+            "label": "Password (minLength = 6)",
+            "type": "password",
+            "required": true,
+            "minLength": 6
+          }
+        },
+        {
+          "key": "comment",
+          "type": "textarea",
+          "props": {
+            "label": "Comment (maxLength = 100)",
+            "required": true,
+            "maxLength": 100,
+            "rows": 5
+          }
+        },
+        {
+          "key": "ip",
+          "type": "input",
+          "props": {
+            "label": "IP Address (pattern = /(d{1,3}.){3}d{1,3}/)",
+            "pattern": {},
+            "required": true
+          }
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Flex styles",
+      "form": [
+        {
+          "fieldGroupClassName": "display-flex",
+          "fieldGroup": [
+            {
+              "className": "flex-1",
+              "type": "input",
+              "key": "firstName",
+              "props": {
+                "label": "First Name"
+              }
+            },
+            {
+              "className": "flex-1",
+              "type": "input",
+              "key": "lastName",
+              "props": {
+                "label": "Last Name"
+              },
+              "expressions": {
+                "props.disabled": "!model.firstName"
+              }
+            }
+          ]
+        },
+        {
+          "template": "<hr /><div><strong>Address:</strong></div>"
+        },
+        {
+          "fieldGroupClassName": "display-flex",
+          "fieldGroup": [
+            {
+              "className": "flex-2",
+              "type": "input",
+              "key": "street",
+              "props": {
+                "label": "Street"
+              }
+            },
+            {
+              "className": "flex-1",
+              "type": "input",
+              "key": "cityName",
+              "props": {
+                "label": "City"
+              }
+            },
+            {
+              "className": "flex-1",
+              "type": "input",
+              "key": "zip",
+              "props": {
+                "type": "number",
+                "label": "Zip",
+                "max": 99999,
+                "min": 0,
+                "pattern": "\\d{5}"
+              }
+            }
+          ]
+        },
+        {
+          "template": "<hr />"
+        },
+        {
+          "type": "input",
+          "key": "otherInput",
+          "props": {
+            "label": "Other Input"
+          }
+        },
+        {
+          "type": "checkbox",
+          "key": "otherToo",
+          "props": {
+            "label": "Other Checkbox"
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "File input",
+      "form": [
+        {
+          "key": "file",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "form": [
+        {
+          "type": "tabs",
+          "fieldGroup": [
+            {
+              "props": {
+                "label": "Personal data"
+              },
+              "fieldGroup": [
+                {
+                  "key": "firstname",
+                  "type": "input",
+                  "props": {
+                    "label": "First name",
+                    "required": true
+                  }
+                },
+                {
+                  "key": "age",
+                  "type": "input",
+                  "props": {
+                    "type": "number",
+                    "label": "Age",
+                    "required": true
+                  }
+                }
+              ]
+            },
+            {
+              "props": {
+                "label": "Destination"
+              },
+              "fieldGroup": [
+                {
+                  "key": "country",
+                  "type": "input",
+                  "props": {
+                    "label": "Country",
+                    "required": true
+                  }
+                }
+              ]
+            },
+            {
+              "props": {
+                "label": "Day of the trip"
+              },
+              "fieldGroup": [
+                {
+                  "key": "day",
+                  "type": "input",
+                  "props": {
+                    "type": "date",
+                    "label": "Day of the trip",
+                    "required": true
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
