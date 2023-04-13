@@ -1,5 +1,23 @@
-
-.options-box {
-  background-color: #cecece;
-  padding: 10px;
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  .generator {
+    height: 100vh;
+    border-right: 2px solid black;
+    padding: 10px;
+    .big{
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .options-box {
+      background-color: #cecece;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  }
+  .preview{
+    padding: 10px;
+    max-height: 100%;
+    overflow-y: auto;
+  }
 }

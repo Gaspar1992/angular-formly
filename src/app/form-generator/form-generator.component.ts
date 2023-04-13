@@ -1,5 +1,10 @@
 import { JsonPipe, NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   FormlyServeResponse,
@@ -110,6 +115,7 @@ export class FormGeneratorComponent implements OnInit {
   propsForm!: FormlyConfig;
   formlyConfig?: FormlyConfig;
   optionsConfig!: FormlyConfig;
+  previewConfig!: FormlyConfig | null;
   item!: any;
 
   optionsArray: any[] = [];
@@ -140,6 +146,8 @@ export class FormGeneratorComponent implements OnInit {
   showOptionsForm = false;
   options: FormlyFormOptions = {};
 
+  constructor(private cd: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.formlyConfig = buildFormlyConfig(this.defaultForm.form, 'titulo');
 
@@ -159,7 +167,6 @@ export class FormGeneratorComponent implements OnInit {
   }
 
   saveForm() {
-    console.log(this.formlyConfig);
     window.localStorage.setItem('form', JSON.stringify(this.generatedForm));
   }
 
@@ -180,9 +187,11 @@ export class FormGeneratorComponent implements OnInit {
       obj.props = null;
     }
 
+    this.cd.detectChanges();
     this.generatedForm.form.push(obj);
+    const objGenerated = JSON.parse(JSON.stringify(this.generatedForm.form));
+    this.previewConfig = buildFormlyConfig(objGenerated, '');
     this.optionsArray = [];
-    console.log(this.propsForm.model);
   }
 
   makeid() {
@@ -205,8 +214,6 @@ export class FormGeneratorComponent implements OnInit {
       return null;
     }
   }
-
-  addOptionInputs() {}
 
   buildOptionsConfig() {
     this.optionsConfig = buildFormlyConfig(this.optionsForm.form, '');

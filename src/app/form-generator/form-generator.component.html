@@ -1,32 +1,68 @@
-<button (click)="saveForm()">save</button>
-<formly-form
-  *ngIf="formlyConfig"
-  [(model)]="formlyConfig.model"
-  [fields]="formlyConfig.fields"
-  [form]="formlyConfig.form"
-  [options]="formlyConfig.options"
->
-</formly-form>
-<formly-form
-  *ngIf="propsForm"
-  [(model)]="propsForm.model"
-  [fields]="propsForm.fields"
-  [form]="propsForm.form"
-  [options]="propsForm.options"
->
-</formly-form>
-<div *ngIf="optionsConfig && showOptionsForm" class="options-box">
-  Options
-  <formly-form
-    [(model)]="optionsConfig.model"
-    [fields]="optionsConfig.fields"
-    [form]="optionsConfig.form"
-    [options]="options"
-  >
-  </formly-form>
-  <button (click)="onSaveOption()">save option</button>
-</div>
-<button *ngIf="propsForm" (click)="onSubmitItem()">Save input</button>
-<span *ngIf="generatedForm">
-  {{ generatedForm | json }}
-</span>
+<main>
+  <div class="generator">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="btn btn-primary submit-button big"
+      (click)="saveForm()"
+    >
+      Save form
+    </button>
+
+    <formly-form
+      *ngIf="formlyConfig"
+      [(model)]="formlyConfig.model"
+      [fields]="formlyConfig.fields"
+      [form]="formlyConfig.form"
+      [options]="formlyConfig.options"
+    >
+    </formly-form>
+    <formly-form
+      *ngIf="propsForm"
+      [(model)]="propsForm.model"
+      [fields]="propsForm.fields"
+      [form]="propsForm.form"
+      [options]="propsForm.options"
+    >
+    </formly-form>
+    <div *ngIf="optionsConfig && showOptionsForm" class="options-box">
+      Options
+      <formly-form
+        [(model)]="optionsConfig.model"
+        [fields]="optionsConfig.fields"
+        [form]="optionsConfig.form"
+        [options]="options"
+      >
+      </formly-form>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="btn btn-primary submit-button"
+        (click)="onSaveOption()"
+      >
+        Save option
+      </button>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="btn btn-primary submit-button"
+      (click)="onSubmitItem()"
+    >
+      Save element
+    </button>
+  </div>
+  <div class="preview">
+    <formly-form
+      *ngIf="previewConfig"
+      [(model)]="previewConfig.model"
+      [fields]="previewConfig.fields"
+      [form]="previewConfig.form"
+      [options]="previewConfig.options"
+    >
+    </formly-form>
+  </div>
+</main>

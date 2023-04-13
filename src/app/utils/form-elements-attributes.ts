@@ -55,7 +55,7 @@ const textarea = [
     props: {
       label: 'Rows',
       value: false,
-      type: 'text',
+      type: 'number',
     },
   },
 
