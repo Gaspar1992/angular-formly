@@ -2,3 +2,75 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+main {
+    display: flex;
+    margin-top: 10vh;
+    flex-direction: row;
+    justify-content: center;
+    place-content: center;
+    height: 100vh;
+  
+    div.body {
+      width: 50vw;
+  
+      h1, h2, p {
+        text-align: center;
+      }
+  
+      form {
+        margin-top: 10vh;
+        display: flex;
+        flex-direction: column;
+  
+  
+        button {
+          margin: 5px;
+        }
+      }
+  
+  
+    }
+  }
+  
+  
+  .display-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .flex-1 {
+    flex: 1;
+  }
+  
+  .flex-2 {
+    flex: 2;
+  }
+  
+  .flex-3 {
+    flex: 3;
+  }
+  
+  .flex-4 {
+    flex: 4;
+  }
+  
+  .flex-5 {
+    flex: 5;
+  }
+  
+  .flex-6 {
+    flex: 6;
+  }
+  
+  [class*='flex-'] {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  [class*='flex-']:first-child {
+    padding-left: 0;
+  }
+  
+  [class*='flex-']:nth-last-child(2) {
+    padding-right: 0;
+  }

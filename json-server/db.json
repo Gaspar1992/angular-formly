@@ -105,6 +105,7 @@
         {
           "key": "agree",
           "type": "checkbox",
+          "defaultValue": true,
           "props": {
             "label": "Agree? (not initialized at all)",
             "required": true
