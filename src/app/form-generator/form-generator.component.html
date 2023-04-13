@@ -1,0 +1,32 @@
+<button (click)="saveForm()">save</button>
+<formly-form
+  *ngIf="formlyConfig"
+  [(model)]="formlyConfig.model"
+  [fields]="formlyConfig.fields"
+  [form]="formlyConfig.form"
+  [options]="formlyConfig.options"
+>
+</formly-form>
+<formly-form
+  *ngIf="propsForm"
+  [(model)]="propsForm.model"
+  [fields]="propsForm.fields"
+  [form]="propsForm.form"
+  [options]="propsForm.options"
+>
+</formly-form>
+<div *ngIf="optionsConfig && showOptionsForm" class="options-box">
+  Options
+  <formly-form
+    [(model)]="optionsConfig.model"
+    [fields]="optionsConfig.fields"
+    [form]="optionsConfig.form"
+    [options]="options"
+  >
+  </formly-form>
+  <button (click)="onSaveOption()">save option</button>
+</div>
+<button *ngIf="propsForm" (click)="onSubmitItem()">Save input</button>
+<span *ngIf="generatedForm">
+  {{ generatedForm | json }}
+</span>
