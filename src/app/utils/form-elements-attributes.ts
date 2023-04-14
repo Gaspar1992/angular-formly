@@ -29,6 +29,16 @@ const required = [
 ];
 const input = [
   {
+    key: 'autocomplete',
+    type: 'checkbox',
+    defaultValue: false,
+
+    props: {
+      label: 'autocomplete',
+      value: false,
+    },
+  },
+  {
     key: 'value',
     type: 'input',
     props: {
@@ -44,6 +54,8 @@ const textarea = [
   {
     key: 'autocomplete',
     type: 'checkbox',
+    defaultValue: false,
+
     props: {
       label: 'autocomplete',
       value: false,
@@ -66,19 +78,7 @@ const textarea = [
 
 const select = [...required, ...label];
 
-const checkbox = [
-  {
-    key: 'autocomplete',
-    type: 'checkbox',
-    defaultValue: false,
-    props: {
-      label: 'autocomplete',
-      value: false,
-    },
-  },
-  ...label,
-  ...required,
-];
+const checkbox = [...label, ...required];
 
 const radio = [...checkbox];
 
