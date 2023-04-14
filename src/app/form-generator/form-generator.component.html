@@ -45,15 +45,37 @@
         Save option
       </button>
     </div>
-    <button
-      mat-raised-button
-      color="primary"
-      type="submit"
-      class="btn btn-primary submit-button"
-      (click)="onSubmitItem()"
-    >
-      Save element
-    </button>
+    <div *ngIf="!editmode; else editMode">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="btn btn-primary submit-button"
+        (click)="onSubmitItem()"
+      >
+        Save element
+      </button>
+    </div>
+    <ng-template #editMode>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="btn btn-primary submit-button"
+        (click)="saveEdit()"
+      >
+        Editar elemento
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="btn btn-primary submit-button"
+        (click)="cancelEdit()"
+      >
+        Cancelar edicion
+      </button>
+    </ng-template>
   </div>
   <div class="preview">
     <formly-form

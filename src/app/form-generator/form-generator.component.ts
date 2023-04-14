@@ -15,7 +15,10 @@ import { itemProps } from '../utils/form-elements-attributes';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormlyModule } from '@ngx-formly/core';
-import { FormlyFormOptions } from '@ngx-formly/core/lib/models';
+import {
+  FormlyFieldConfig,
+  FormlyFormOptions,
+} from '@ngx-formly/core/lib/models';
 @Component({
   selector: 'form-generator',
   standalone: true,
@@ -158,10 +161,15 @@ export class FormGeneratorComponent implements OnInit {
   };
   showOptionsForm = false;
   options: FormlyFormOptions = {};
-
+  editmode = false;
+  selectedItem!: string | null;
   constructor(private cd: ChangeDetectorRef, private elem: ElementRef) {}
 
   ngOnInit(): void {
+    this.buildDefaultConfig();
+  }
+
+  buildDefaultConfig() {
     this.formlyConfig = buildFormlyConfig(this.defaultForm.form, 'titulo');
 
     this.formlyConfig?.options.fieldChanges?.subscribe((e) => console.log(e));
@@ -293,7 +301,43 @@ export class FormGeneratorComponent implements OnInit {
   }
 
   onSelectEdit(id: string | null) {
-    console.log('seleccionado edit', id);
-    console.log(this.generatedForm.form.find((element) => element.key === id));
+    this.editmode = true;
+    this.selectedItem = id;
+    const selectedElement: any = this.generatedForm.form.find(
+      (element) => element.key === id
+    );
+    if (!this.formlyConfig) return;
+
+    this.formlyConfig.form.patchValue({ type: selectedElement.type });
+
+    Object.keys(selectedElement.props).forEach((key) => {
+      this.propsForm.model[key] = selectedElement.props[key];
+    });
+  }
+
+  resetForm() {
+    const elementType: typeof this.typeOption[number] =
+      this.formlyConfig?.model['type'];
+    if (elementType === 'radio' || elementType == 'select') {
+      this.showOptionsForm = true;
+      this.buildOptionsConfig();
+    }
+    this.propsForm = buildFormlyConfig(itemProps[elementType], '');
+  }
+
+  cancelEdit() {
+    this.resetForm();
+    this.editmode = false;
+  }
+
+  saveEdit() {
+    this.generatedForm.form.forEach((el) => {
+      if (el.key === this.selectedItem) {
+        el.props = this.propsForm.model;
+      }
+    });
+    this.buildPreview(this.generatedForm);
+    this.resetForm();
+    this.editmode = false;
   }
 }
