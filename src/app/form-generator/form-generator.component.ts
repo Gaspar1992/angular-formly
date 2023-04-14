@@ -195,7 +195,7 @@ export class FormGeneratorComponent implements OnInit {
     const obj = {
       key: `${this.formlyConfig?.model['type']}-${await this.makeid()}`,
       type: this.formlyConfig?.model['type'],
-      props: JSON.parse(JSON.stringify(this.propsForm.model)),
+      props: { ...this.propsForm.model },
       templateOptions: {},
     };
 
@@ -225,14 +225,13 @@ export class FormGeneratorComponent implements OnInit {
   }
 
   formatOptions(type: typeof this.typeOption[number]) {
-    if (type === 'radio' || type === 'select') {
-      return this.optionsArray.map((option) => ({
-        value: option.value,
-        label: option.key,
-      }));
-    } else {
+    if (type !== 'radio' && type !== 'select') {
       return null;
     }
+    return this.optionsArray.map((option) => ({
+      value: option.value,
+      label: option.key,
+    }));
   }
 
   buildOptionsConfig() {
@@ -240,21 +239,15 @@ export class FormGeneratorComponent implements OnInit {
   }
 
   buildPreview(generatedForm: FormlyServeResponse) {
-    const previewForm = JSON.parse(JSON.stringify(generatedForm.form));
-    this.previewConfig = buildFormlyConfig(
-      this.insertBetweenElements(previewForm),
-      ''
-    );
+    const previewForm = Array.from(generatedForm.form);
+    const previewWithTemplate = previewForm.flatMap((el: any) => [
+      { template: this.buildTemplate(el.key) },
+      el,
+    ]);
+    this.previewConfig = buildFormlyConfig(previewWithTemplate, '');
     setTimeout(() => {
       this.addEventToPreviewElements();
     }, 0);
-  }
-
-  insertBetweenElements(arr: any[]) {
-    return arr.reduce(
-      (acc, el) => acc.concat([{ template: this.buildTemplate(el.key) }, el]),
-      []
-    );
   }
 
   buildTemplate(id: string) {
